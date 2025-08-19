@@ -1,0 +1,59 @@
+x-common: &common
+  image: infra.serenitygpt.com/serenity:latest
+  restart: unless-stopped
+  volumes:
+    - ./data/backend-files:/app/files
+    - ./clients:/app/clients
+  environment:
+    DEBUG: false
+    DATABASE_URL: postgresql://postgres@pgvector:5432/serenity
+    EMBEDDINGS_API_DEFAULT: http://embeddings:7997
+    AZURE_OPENAI_API_KEY: ${AZURE_OPENAI_API_KEY}
+
+services:
+  backend:
+    <<: *common
+    container_name: backend
+    ports:
+      - "127.0.0.1:8000:8000"
+
+  answers:
+    <<: *common
+    container_name: worker_answers
+    command: python manage.py run_answers
+
+  telemetry:
+    <<: *common
+    container_name: worker_telemetry
+    command: python manage.py run_telemetry
+
+  crawler:
+    <<: *common
+    container_name: worker_crawler
+    command: python manage.py run_crawler --period 720 --infinite
+
+  indexer:
+    <<: *common
+    container_name: worker_indexer
+    command: python manage.py run_indexer --gpu --infinite
+
+  embeddings:
+    image: michaelf34/infinity:latest
+    restart: unless-stopped
+    volumes:
+      - ./data/cache/models:/app/.cache
+    command: >
+      v2 --model-id Snowflake/snowflake-arctic-embed-l-v2.0
+    deploy:
+      replicas: 2
+
+  pgvector:
+    image: ankane/pgvector
+    container_name: pgvector
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: serenity
+      POSTGRES_USER: postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data

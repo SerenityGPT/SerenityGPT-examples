@@ -1,0 +1,6 @@
+id,title,content,url,project
+TCK-101,Login issue,Users cannot log in after update.,http://jira.local/TCK-101,Auth
+TCK-102,Slow dashboard,Dashboard takes too long to load.,http://jira.local/TCK-102,UI
+TCK-103,API timeout,Some API calls timeout under heavy load.,http://jira.local/TCK-103,Backend
+TCK-104,Missing translation,French translation missing on settings page.,http://jira.local/TCK-104,i18n
+TCK-105,Email not sent,Notification emails are not delivered.,http://jira.local/TCK-105,Notifications
