@@ -4,7 +4,7 @@ questions:
       target_url: https://snapweaver.staging.serenitygpt.com/introduction.html
     - question: How to install SnapWeaver?
       target_url: https://snapweaver.staging.serenitygpt.com/installation.html
-  csv:
+  tickets:
     - question: Give me examples of tickets with login isuues
       instructions: should mention ticket "Login issue"
 
