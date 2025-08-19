@@ -1,5 +1,8 @@
 name: Demo
 
+
+prompt: {}
+
 tenants:
   snapweaver:
     name: SnapWeaver
