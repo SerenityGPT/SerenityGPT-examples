@@ -4,7 +4,7 @@ from typing import Optional
 from crawler.files.main import FilesCrawler, run as run_file_crawler
 from crawler.struct import ParsedDocument
 
-class TicketsCrawler(FilesCrawler):
+class CSVCrawler(FilesCrawler):
     def handle_custom(self, file: Path) -> list[ParsedDocument]:
         results = []
         with open(file, 'r') as f:
@@ -21,4 +21,4 @@ class TicketsCrawler(FilesCrawler):
         return results
 
 def run(conf):
-    run_file_crawler(conf, crawler_class=TicketsCrawler)
+    run_file_crawler(conf, crawler_class=CSVCrawler)

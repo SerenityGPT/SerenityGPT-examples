@@ -1,0 +1,28 @@
+name: Demo
+
+tenants:
+  snapweaver:
+    name: SnapWeaver
+    crawlers:
+      docs:
+        module: web
+        parameters:
+          metadata:
+            document_type: DOC
+          start_urls:
+            - https://snapweaver.staging.serenitygpt.com/index.html
+          match_urls:
+            - https://snapweaver.staging.serenitygpt.com/(?!faq\.html$).*
+          text_selectors:
+            - div[class="container"]
+
+  tickets:
+    name: Tickets
+    crawlers:
+      csv:
+        module: demo.src.csv_crawler.run
+        parameters:
+          source: .
+          public_url: http://jira.local
+          metadata:
+            document_type: "TCK"
