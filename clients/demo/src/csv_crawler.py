@@ -6,8 +6,10 @@ from crawler.struct import ParsedDocument
 
 class CSVCrawler(FilesCrawler):
     def handle_custom(self, file: Path) -> list[ParsedDocument]:
+        if file.suffix != '.csv':
+            return []
         results = []
-        with open(file, 'r') as f:
+        with open(file, 'r', encoding='utf-8') as f:
             reader = csv.DictReader(f)
             for row in reader:
                 print(f"Processing ticket: {row['title']}")

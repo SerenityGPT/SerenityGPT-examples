@@ -26,6 +26,8 @@ tenants:
         module: demo.src.csv_crawler.run
         parameters:
           source: .
-          public_url: http://jira.local
+          public_url: http://jira.local/
+          extensions:
+            - .csv
           metadata:
             document_type: "TCK"
