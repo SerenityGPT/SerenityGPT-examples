@@ -19,6 +19,6 @@ def run(conf):
                     text=row['content'],
                     url=row['url'],
                     breadcrumbs=[row['project']],
-                    metadata={"ticket_id": row['id']},
+                    metadata={"ticket_id": row['id'], "document_type": "TCK"},
                 )
                 doc.update_or_create(conf.source)
